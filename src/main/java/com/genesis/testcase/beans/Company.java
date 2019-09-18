@@ -3,6 +3,8 @@ package com.genesis.testcase.beans;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -23,13 +25,14 @@ public class Company implements Serializable {
 
     @OneToMany(cascade=CascadeType.ALL)
     @OrderColumn
+    @NotEmpty
     private Collection<Address> addresses;
 
     @OneToOne(cascade=CascadeType.ALL)
+    @NotNull
     private LegalInfo legalinfo;
 
     @ManyToOne(cascade=CascadeType.PERSIST,fetch = FetchType.LAZY)
-//    @JoinColumn(name = "contact_id")
     private Contact contact;
 
     public Company() {

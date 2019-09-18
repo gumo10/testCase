@@ -1,6 +1,8 @@
 package com.genesis.testcase.beans;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -24,13 +26,18 @@ public class Contact implements Serializable {
     @Column(name = "lastname", nullable = false)
     private String lastname;
 
+    @Column(name = "is_freelance")
+    private Boolean freelance;
+
     @OneToOne(cascade=CascadeType.ALL)
     private LegalInfo legalinfo;
 
     @OneToOne(cascade=CascadeType.ALL)
+    @NotNull
     private Address address;
 
     @OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
+    @NotEmpty
     private Collection<Company> companies;
 
     public Contact() {
@@ -72,6 +79,14 @@ public class Contact implements Serializable {
         this.lastname = lastname;
     }
 
+    public Boolean getFreelance() {
+        return freelance;
+    }
+
+    public void setFreelance(Boolean freelance) {
+        this.freelance = freelance;
+    }
+
     public LegalInfo getLegalinfo() {
         return legalinfo;
     }
@@ -94,17 +109,5 @@ public class Contact implements Serializable {
 
     public void setCompanies(Collection<Company> companies) {
         this.companies = companies;
-    }
-
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", legalinfo=" + legalinfo +
-                ", address=" + address +
-                ", companies=" + companies +
-                '}';
     }
 }

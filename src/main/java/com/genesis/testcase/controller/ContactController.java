@@ -26,7 +26,10 @@ public class ContactController {
      */
     @PostMapping("/add")
     public Contact createContact(@Valid @RequestBody Contact contact) {
-        return contactRepository.save(contact);
+        if((contact.getFreelance() && contact.getLegalinfo() != null) || (!contact.getFreelance()))
+            return contactRepository.save(contact);
+
+        return null;
     }
 
     /**
@@ -44,6 +47,7 @@ public class ContactController {
                     .findById(contactId)
                     .orElseThrow(()
                             -> new EntityNotFoundException("Contact not found on :: " + contactId));
+
             if(ContactDetails.getLastname() != null)
                 contact.setLastname(ContactDetails.getLastname());
             if(ContactDetails.getFirstname() != null)
@@ -52,6 +56,8 @@ public class ContactController {
                 contact.setAddress(ContactDetails.getAddress());
             if(ContactDetails.getLegalinfo() != null)
                 contact.setLegalinfo(ContactDetails.getLegalinfo());
+            if(ContactDetails.getCompanies() != null)
+                contact.setCompanies(ContactDetails.getCompanies());
 
             final Contact updatedContact = contactRepository.save(contact);
             return ResponseEntity.ok(updatedContact);
@@ -59,7 +65,6 @@ public class ContactController {
         catch (EntityNotFoundException e){
             return ResponseEntity.ok("error");
         }
-
     }
 
     /**

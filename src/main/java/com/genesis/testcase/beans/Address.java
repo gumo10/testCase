@@ -35,6 +35,26 @@ public class Address implements Serializable {
     @Column(name = "country")
     private String country;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Boolean getMain() {
+        return main;
+    }
+
+    public void setMain(Boolean main) {
+        this.main = main;
+    }
+
     public String getStreet() {
         return street;
     }
@@ -74,49 +94,4 @@ public class Address implements Serializable {
     public void setCountry(String country) {
         this.country = country;
     }
-    //    @OneToOne(mappedBy="address")
-//    private Contact contact;
-//
-//    @ManyToOne()
-////    @JoinColumn(name = "company_id")
-//    private Company company;
-
-    public Address() {
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Boolean getMain() {
-        return main;
-    }
-
-    public void setMain(Boolean main) {
-        this.main = main;
-    }
-
-//    public Contact getContact() {
-//        return contact;
-//    }
-//
-//    public void setContact(Contact contact) {
-//        this.contact = contact;
-//    }
-//
-//    public Company getCompany() {
-//        return company;
-//    }
-//
-//    public void setCompany(Company company) {
-//        this.company = company;
-//    }
 }
